@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section id="hero" class="hero-section">
+    <div class="container hero-content">
+        <h1 class="hero-title fade-in-up">
+            Software Engineer <br>
+            <span class="text-gradient">Future Architect</span>
+        </h1>
+        <p class="hero-subtitle fade-in-up delay-1">
+            I build high-performance, scalable web applications with a focus on blockchain innovation and seamless user
+            experiences.
+        </p>
+        <div class="hero-buttons fade-in-up delay-2">
+            <a href="#projects" class="btn btn-primary">View Projects <i class="ph ph-arrow-right"></i></a>
+            <a href="{% url 'download_resume' %}" class="btn btn-outline">Download Resume <i class="ph ph-download-simple"></i></a>
+        </div>
+    </div>
+    <div class="hero-background-elements">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section id="about" class="section about-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text scroll-reveal">
+                <p>
+                    I am <strong>Akshay K</strong>, a Computer Applications postgraduate (MCA) with a passion for
+                    solving complex problems through code.
+                    With a strong foundation in <span class="highlight">full-stack development</span> and <span
+                        class="highlight">blockchain technology</span>,
+                    I bridge the gap between robust backend logic and intuitive frontend design.
+                </p>
+                <p>
+                    Currently focused on <strong>Decentralized Applications (DApps)</strong> and scalable web solutions.
+                    I thrive in fast-paced environments where innovation is the currency.
+                </p>
+            </div>
+            <div class="about-stats scroll-reveal delay-1">
+                <div class="stat-card">
+                    <span class="stat-number">MCA</span>
+                    <span class="stat-label">Postgrad</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Major Projects</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Tech Stack</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS SECTION -->
+<section id="skills" class="section skills-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">Technical Arsenal</h2>
+        <div class="skills-wrapper">
+            {% for skill in skills %}
+            <div class="skill-tag scroll-reveal staggered">
+                {{ skill }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section id="projects" class="section projects-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">Featured Work</h2>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card scroll-reveal">
+                <div class="project-content">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-desc">{{ project.description }}</p>
+                    <div class="project-tech">
+                        {% for tech in project.tech %}
+                        <span class="tech-badge">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="project-link-wrapper">
+                    <a href="#" class="project-link"><i class="ph ph-arrow-up-right"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION SECTION -->
+<section id="education" class="section education-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">Education</h2>
+        <div class="timeline">
+            {% for edu in education %}
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-degree">{{ edu.degree }}</span>
+                    <span class="timeline-meta">{{ edu.meta }}</span>
+                    <span class="timeline-score">{{ edu.score }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- INTERESTS SECTION -->
+<section id="interests" class="section interests-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">Interests</h2>
+        <div class="interests-grid">
+            {% for interest in interests %}
+            <div class="interest-card scroll-reveal">
+                <span class="interest-icon">
+                    {% if interest == 'Sports' %}<i class="ph ph-trophy"></i>
+                    {% elif interest == 'Stock Market' %}<i class="ph ph-trend-up"></i>
+                    {% elif interest == 'Cryptocurrency' %}<i class="ph ph-currency-btc"></i>
+                    {% else %}<i class="ph ph-star"></i>{% endif %}
+                </span>
+                <span class="interest-name">{{ interest }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact" class="section cta-section">
+    <div class="container cta-content">
+        <h2 class="cta-title">Ready to build something extraordinary?</h2>
+        <p class="cta-text">I'm available for full-time opportunities.</p>
+        <a href="mailto:contact@akshayk.dev" class="btn btn-primary btn-lg">Get In Touch</a>
+    </div>
+</section>
+
+{% endblock %}
