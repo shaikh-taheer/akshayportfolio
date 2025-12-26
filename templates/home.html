@@ -6,16 +6,23 @@
 <section id="hero" class="hero-section">
     <div class="container hero-content">
         <h1 class="hero-title fade-in-up">
-            Software Engineer <br>
-            <span class="text-gradient">Future Architect</span>
+            Data-Driven Analyst <br>
+            <span class="text-gradient">{{ name }}</span>
         </h1>
         <p class="hero-subtitle fade-in-up delay-1">
-            I build high-performance, scalable web applications with a focus on blockchain innovation and seamless user
-            experiences.
+            {{ tagline }}
+        </p>
+        <p class="hero-description fade-in-up delay-1">
+            {{ summary }}
         </p>
         <div class="hero-buttons fade-in-up delay-2">
             <a href="#projects" class="btn btn-primary">View Projects <i class="ph ph-arrow-right"></i></a>
             <a href="{% url 'download_resume' %}" class="btn btn-outline">Download Resume <i class="ph ph-download-simple"></i></a>
+        </div>
+        <div class="hero-info fade-in-up delay-2">
+            <span><i class="ph ph-map-pin"></i> {{ location }}</span>
+            <span><i class="ph ph-envelope-simple"></i> {{ email }}</span>
+            <span><i class="ph ph-phone"></i> {{ phone }}</span>
         </div>
     </div>
     <div class="hero-background-elements">
@@ -31,29 +38,21 @@
         <div class="about-grid">
             <div class="about-text scroll-reveal">
                 <p>
-                    I am <strong>Akshay K</strong>, a Computer Applications postgraduate (MCA) with a passion for
-                    solving complex problems through code.
-                    With a strong foundation in <span class="highlight">full-stack development</span> and <span
-                        class="highlight">blockchain technology</span>,
-                    I bridge the gap between robust backend logic and intuitive frontend design.
-                </p>
-                <p>
-                    Currently focused on <strong>Decentralized Applications (DApps)</strong> and scalable web solutions.
-                    I thrive in fast-paced environments where innovation is the currency.
+                    {{ summary }}
                 </p>
             </div>
             <div class="about-stats scroll-reveal delay-1">
                 <div class="stat-card">
-                    <span class="stat-number">MCA</span>
-                    <span class="stat-label">Postgrad</span>
+                    <span class="stat-number">8.7</span>
+                    <span class="stat-label">CGPA</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label">Major Projects</span>
+                    <span class="stat-number">{{ projects|length }}+</span>
+                    <span class="stat-label">Projects</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label">Tech Stack</span>
+                    <span class="stat-number">{{ skills|length }}+</span>
+                    <span class="stat-label">Skills</span>
                 </div>
             </div>
         </div>
@@ -74,6 +73,30 @@
     </div>
 </section>
 
+<!-- EXPERIENCE SECTION -->
+<section id="experience" class="section experience-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">Experience</h2>
+        <div class="timeline">
+            {% for exp in experience %}
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-role">{{ exp.role }}</span>
+                    <span class="timeline-company">{{ exp.company }}</span>
+                    <span class="timeline-meta">{{ exp.duration }} | {{ exp.location }}</span>
+                    <ul class="timeline-responsibilities">
+                        {% for responsibility in exp.responsibilities %}
+                        <li>{{ responsibility }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 <!-- PROJECTS SECTION -->
 <section id="projects" class="section projects-section">
     <div class="container">
@@ -84,11 +107,13 @@
                 <div class="project-content">
                     <h3 class="project-title">{{ project.title }}</h3>
                     <p class="project-desc">{{ project.description }}</p>
+                    {% if project.tech %}
                     <div class="project-tech">
                         {% for tech in project.tech %}
                         <span class="tech-badge">{{ tech }}</span>
                         {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
                 <div class="project-link-wrapper">
                     <a href="#" class="project-link"><i class="ph ph-arrow-up-right"></i></a>
@@ -118,20 +143,39 @@
     </div>
 </section>
 
-<!-- INTERESTS SECTION -->
-<section id="interests" class="section interests-section">
+<!-- CERTIFICATIONS SECTION -->
+<section id="certifications" class="section certifications-section">
     <div class="container">
-        <h2 class="section-title reveal-text">Interests</h2>
-        <div class="interests-grid">
-            {% for interest in interests %}
-            <div class="interest-card scroll-reveal">
-                <span class="interest-icon">
-                    {% if interest == 'Sports' %}<i class="ph ph-trophy"></i>
-                    {% elif interest == 'Stock Market' %}<i class="ph ph-trend-up"></i>
-                    {% elif interest == 'Cryptocurrency' %}<i class="ph ph-currency-btc"></i>
-                    {% else %}<i class="ph ph-star"></i>{% endif %}
-                </span>
-                <span class="interest-name">{{ interest }}</span>
+        <h2 class="section-title reveal-text">Certifications</h2>
+        <div class="certifications-grid">
+            {% for cert in certifications %}
+            <div class="cert-card scroll-reveal">
+                <div class="cert-icon">
+                    <i class="ph ph-certificate"></i>
+                </div>
+                <div class="cert-content">
+                    <h3 class="cert-title">{{ cert.title }}</h3>
+                    {% if cert.organization %}
+                    <p class="cert-org">{{ cert.organization }}</p>
+                    {% endif %}
+                    {% if cert.duration %}
+                    <p class="cert-meta">{{ cert.duration }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- LANGUAGES SECTION -->
+<section id="languages" class="section languages-section">
+    <div class="container">
+        <h2 class="section-title reveal-text">Languages</h2>
+        <div class="skills-wrapper">
+            {% for language in languages %}
+            <div class="skill-tag scroll-reveal staggered">
+                <i class="ph ph-globe"></i> {{ language }}
             </div>
             {% endfor %}
         </div>
@@ -141,9 +185,12 @@
 <!-- FINAL CTA -->
 <section id="contact" class="section cta-section">
     <div class="container cta-content">
-        <h2 class="cta-title">Ready to build something extraordinary?</h2>
-        <p class="cta-text">I'm available for full-time opportunities.</p>
-        <a href="mailto:contact@akshayk.dev" class="btn btn-primary btn-lg">Get In Touch</a>
+        <h2 class="cta-title">Ready to connect?</h2>
+        <p class="cta-text">I'm available for opportunities and collaborations.</p>
+        <div class="cta-buttons">
+            <a href="mailto:{{ email }}" class="btn btn-primary btn-lg">Get In Touch</a>
+            <a href="tel:{{ phone }}" class="btn btn-outline btn-lg">Call Me</a>
+        </div>
     </div>
 </section>
 
